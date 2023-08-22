@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
-
 from rest_framework import routers
+from usuario.router import router as usuario_router
 
 from garagem.views import (
     MarcaViewSet,
@@ -21,4 +21,8 @@ router.register(r"acessórios", AcessorioViewSet)
 router.register(r"veiculos", VeiculoViewSet)
 
 
-urlpatterns = [path("admin/", admin.site.urls), path("", include(router.urls))]
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("api/", include(usuario_router.urls)),
+    path("", include(router.urls)),
+]
