@@ -15,6 +15,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import os
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -38,7 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "garagem"
+    "usuario",
+    "garagem",
+    "drf_spectacular",
+    "django_extensions",
+    "uploader",
 ]
 
 MIDDLEWARE = [
@@ -123,3 +128,20 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = "usuario.Usuario"
+
+MEDIA_URL = "http://localhost:8000/media/"
+MEDIA_ENDPOINT = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+FILE_UPLOAD_PERMISSIONS = 0o640
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Garagem API",
+    "DESCRIPTION": "API para gerenciamento de garagem, incluindo endpoints e documentação.",
+    "VERSION": "1.0.0",
+}
